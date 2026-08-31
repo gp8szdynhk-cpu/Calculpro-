@@ -1,390 +1,428 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CalculPro — Calculateur de bénéfice</title>
-
+<title>CalculPro — Tes chiffres, simplement</title>
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#06111f,#0b1d31,#102c45);
+color:#fff;
+min-height:100vh;
 }
-
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #07111f, #0d1b2f 55%, #102a43);
-  color: white;
-  min-height: 100vh;
+.container{
+width:92%;
+max-width:1050px;
+margin:auto;
+padding:25px 0 45px;
 }
-
-.container {
-  width: 92%;
-  max-width: 1050px;
-  margin: auto;
-  padding: 28px 0 50px;
+header{text-align:center;padding:15px 0 28px}
+.logo{
+font-size:40px;
+font-weight:800;
+letter-spacing:-1px;
 }
-
-header {
-  text-align: center;
-  padding: 25px 0 35px;
+.logo span{color:#35d07f}
+.subtitle{
+color:#9fb1c4;
+margin-top:8px;
 }
-
-.logo {
-  font-size: 38px;
-  font-weight: 800;
+.hero{text-align:center;margin-bottom:25px}
+.hero h1{
+font-size:clamp(30px,7vw,52px);
+line-height:1.05;
+margin-bottom:12px;
 }
-
-.logo span {
-  color: #35d07f;
+.hero h1 span{color:#35d07f}
+.hero p{
+color:#aebdce;
+line-height:1.6;
+max-width:680px;
+margin:auto;
 }
-
-.subtitle {
-  margin-top: 10px;
-  color: #aebdce;
-  font-size: 16px;
+/* MENU */
+.menu{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin:25px 0;
 }
-
-.hero {
-  text-align: center;
-  margin-bottom: 30px;
+.menu button{
+background:#12263b;
+color:#c9d5e2;
+border:1px solid #203a52;
+padding:14px 8px;
+border-radius:13px;
+font-weight:bold;
+cursor:pointer;
 }
-
-.hero h1 {
-  font-size: clamp(30px, 6vw, 52px);
-  line-height: 1.05;
-  margin-bottom: 14px;
+.menu button.active{
+background:#35d07f;
+color:#06130c;
+border-color:#35d07f;
 }
-
-.hero h1 span {
-  color: #35d07f;
+/* CALCULATOR */
+.calculator{
+background:rgba(255,255,255,.07);
+border:1px solid rgba(255,255,255,.1);
+border-radius:24px;
+padding:24px;
+box-shadow:0 20px 60px rgba(0,0,0,.25);
 }
-
-.hero p {
-  color: #aebdce;
-  max-width: 650px;
-  margin: auto;
-  line-height: 1.6;
+.tool{display:none}
+.tool.active{display:block}
+.tool-title{
+font-size:25px;
+margin-bottom:7px;
 }
-
-.calculator {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 24px;
-  padding: 24px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+.tool-description{
+color:#91a6ba;
+margin-bottom:22px;
+line-height:1.5;
 }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:17px;
 }
-
-.field label {
-  display: block;
-  color: #d7e1ec;
-  font-size: 14px;
-  margin-bottom: 8px;
+.field label{
+display:block;
+font-size:14px;
+color:#d5dfeb;
+margin-bottom:8px;
 }
-
-input {
-  width: 100%;
-  padding: 16px;
-  border-radius: 13px;
-  border: 1px solid #30465d;
-  background: #0a1727;
-  color: white;
-  font-size: 17px;
-  outline: none;
+input{
+width:100%;
+padding:16px;
+border-radius:13px;
+border:1px solid #30465d;
+background:#091727;
+color:#fff;
+font-size:17px;
+outline:none;
 }
-
-input:focus {
-  border-color: #35d07f;
+input:focus{
+border-color:#35d07f;
+box-shadow:0 0 0 3px rgba(53,208,127,.12);
 }
-
-.buttons {
-  display: flex;
-  gap: 12px;
-  margin-top: 22px;
+.action{
+width:100%;
+margin-top:22px;
+padding:16px;
+border:0;
+border-radius:13px;
+background:#35d07f;
+color:#06130c;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
 }
-
-button {
-  flex: 1;
-  border: 0;
-  padding: 16px;
-  border-radius: 13px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
+.result{
+margin-top:22px;
+padding:22px;
+border-radius:17px;
+background:#091727;
+border:1px solid #20384e;
+text-align:center;
 }
-
-.calculate {
-  background: #35d07f;
-  color: #06130c;
+.result small{
+display:block;
+color:#8fa2b7;
+margin-bottom:8px;
 }
-
-.reset {
-  background: #26384c;
-  color: white;
+.result strong{
+font-size:31px;
+color:#35d07f;
 }
-
-.results {
-  margin-top: 25px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+.info{
+margin-top:15px;
+padding:15px;
+border-radius:13px;
+background:rgba(53,208,127,.07);
+color:#b5c5d5;
+line-height:1.5;
 }
-
-.card {
-  background: #0a1727;
-  border-radius: 17px;
-  padding: 20px;
-  border: 1px solid #1e334a;
+footer{
+text-align:center;
+color:#71869b;
+font-size:13px;
+margin-top:30px;
 }
-
-.card small {
-  color: #8fa2b7;
-  display: block;
-  margin-bottom: 9px;
+@media(max-width:700px){
+.menu{
+grid-template-columns:repeat(2,1fr);
 }
-
-.card strong {
-  font-size: 23px;
+.grid{
+grid-template-columns:1fr;
 }
-
-.profit {
-  color: #35d07f;
+.calculator{
+padding:18px;
 }
-
-.loss {
-  color: #ff6b6b;
+.logo{
+font-size:35px;
 }
-
-.tip {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 14px;
-  background: rgba(53,208,127,0.08);
-  border: 1px solid rgba(53,208,127,0.18);
-  color: #b8c8d8;
-  line-height: 1.5;
-}
-
-footer {
-  text-align: center;
-  margin-top: 35px;
-  color: #71869b;
-  font-size: 13px;
-}
-
-@media (max-width: 700px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .results {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .calculator {
-    padding: 18px;
-  }
-
-  .buttons {
-    flex-direction: column;
-  }
 }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
 <header>
-  <div class="logo">Calcul<span>Pro</span></div>
-  <div class="subtitle">Comprends tes chiffres. Maîtrise tes bénéfices.</div>
+<div class="logo">Calcul<span>Pro</span></div>
+<div class="subtitle">Tes chiffres. Tes décisions. Ton avantage.</div>
 </header>
-
 <section class="hero">
-  <h1>Calcule ton <span>bénéfice</span> en quelques secondes.</h1>
-  <p>
-    Entre tes coûts, ton prix de vente et ta quantité.
-    CalculPro te donne instantanément ton chiffre d'affaires,
-    ton bénéfice et ta marge.
-  </p>
+<h1>Les bons calculs pour <span>mieux décider.</span></h1>
+<p>
+Une boîte à outils simple pour entrepreneurs, vendeurs
+et créateurs de projets.
+</p>
 </section>
-
+<!-- MENU -->
+<div class="menu">
+<button class="active" onclick="showTool('benefice',this)">
+💰 Bénéfice
+</button>
+<button onclick="showTool('marge',this)">
+📈 Marge
+</button>
+<button onclick="showTool('prix',this)">
+🏷️ Prix conseillé
+</button>
+<button onclick="showTool('remise',this)">
+🔻 Remise
+</button>
+<button onclick="showTool('tva',this)">
+🧾 TVA
+</button>
+<button onclick="showTool('objectif',this)">
+🎯 Objectif
+</button>
+</div>
 <section class="calculator">
-
+<!-- BENEFICE -->
+<div id="benefice" class="tool active">
+<h2 class="tool-title">💰 Calculateur de bénéfice</h2>
+<p class="tool-description">
+Découvre combien tu gagnes réellement sur tes ventes.
+</p>
 <div class="grid">
-
 <div class="field">
-<label>💰 Prix d'achat unitaire</label>
-<input id="achat" type="number" placeholder="Ex : 20" min="0">
+<label>Prix d'achat unitaire</label>
+<input id="b_achat" type="number" placeholder="20">
 </div>
-
 <div class="field">
-<label>💵 Prix de vente unitaire</label>
-<input id="vente" type="number" placeholder="Ex : 35" min="0">
+<label>Prix de vente unitaire</label>
+<input id="b_vente" type="number" placeholder="35">
 </div>
-
 <div class="field">
-<label>📦 Quantité vendue</label>
-<input id="quantite" type="number" placeholder="Ex : 100" min="0">
+<label>Quantité</label>
+<input id="b_qte" type="number" placeholder="100">
 </div>
-
 <div class="field">
-<label>🚚 Frais supplémentaires</label>
-<input id="frais" type="number" placeholder="Ex : 100" min="0">
+<label>Frais supplémentaires</label>
+<input id="b_frais" type="number" placeholder="100">
 </div>
-
 </div>
-
-<div class="buttons">
-<button class="calculate" onclick="calculer()">
-Calculer mon bénéfice →
-</button>
-
-<button class="reset" onclick="resetForm()">
-Réinitialiser
-</button>
-</div>
-
-<div class="results">
-
-<div class="card">
-<small>Chiffre d'affaires</small>
-<strong id="ca">0 TND</strong>
-</div>
-
-<div class="card">
-<small>Coût total</small>
-<strong id="cout">0 TND</strong>
-</div>
-
-<div class="card">
+<button class="action" onclick="calcBenefice()">Calculer →</button>
+<div class="result">
 <small>Bénéfice net</small>
-<strong id="benefice" class="profit">0 TND</strong>
+<strong id="b_result">0 TND</strong>
 </div>
-
-<div class="card">
+<div class="info" id="b_info">
+💡 Entre tes chiffres pour commencer.
+</div>
+</div>
+<!-- MARGE -->
+<div id="marge" class="tool">
+<h2 class="tool-title">📈 Calculateur de marge</h2>
+<p class="tool-description">
+Découvre le pourcentage de marge réalisé sur une vente.
+</p>
+<div class="grid">
+<div class="field">
+<label>Prix d'achat</label>
+<input id="m_achat" type="number" placeholder="20">
+</div>
+<div class="field">
+<label>Prix de vente</label>
+<input id="m_vente" type="number" placeholder="35">
+</div>
+</div>
+<button class="action" onclick="calcMarge()">Calculer la marge →</button>
+<div class="result">
 <small>Marge</small>
-<strong id="marge">0 %</strong>
+<strong id="m_result">0 %</strong>
 </div>
-
 </div>
-
-<div class="tip" id="message">
-💡 Entre tes chiffres pour découvrir combien tu peux réellement gagner.
+<!-- PRIX -->
+<div id="prix" class="tool">
+<h2 class="tool-title">🏷️ Prix de vente conseillé</h2>
+<p class="tool-description">
+Détermine ton prix de vente à partir du coût et de la marge souhaitée.
+</p>
+<div class="grid">
+<div class="field">
+<label>Coût du produit</label>
+<input id="p_cout" type="number" placeholder="20">
 </div>
-
+<div class="field">
+<label>Marge souhaitée (%)</label>
+<input id="p_marge" type="number" placeholder="30">
+</div>
+</div>
+<button class="action" onclick="calcPrix()">Calculer le prix →</button>
+<div class="result">
+<small>Prix conseillé</small>
+<strong id="p_result">0 TND</strong>
+</div>
+</div>
+<!-- REMISE -->
+<div id="remise" class="tool">
+<h2 class="tool-title">🔻 Calculateur de remise</h2>
+<p class="tool-description">
+Calcule rapidement le prix après une réduction.
+</p>
+<div class="grid">
+<div class="field">
+<label>Prix initial</label>
+<input id="r_prix" type="number" placeholder="100">
+</div>
+<div class="field">
+<label>Remise (%)</label>
+<input id="r_remise" type="number" placeholder="20">
+</div>
+</div>
+<button class="action" onclick="calcRemise()">Calculer →</button>
+<div class="result">
+<small>Prix après remise</small>
+<strong id="r_result">0 TND</strong>
+</div>
+</div>
+<!-- TVA -->
+<div id="tva" class="tool">
+<h2 class="tool-title">🧾 Calculateur TVA</h2>
+<p class="tool-description">
+Passe rapidement du prix HT au prix TTC.
+</p>
+<div class="grid">
+<div class="field">
+<label>Prix HT</label>
+<input id="t_ht" type="number" placeholder="100">
+</div>
+<div class="field">
+<label>TVA (%)</label>
+<input id="t_tva" type="number" placeholder="19">
+</div>
+</div>
+<button class="action" onclick="calcTVA()">Calculer →</button>
+<div class="result">
+<small>Prix TTC</small>
+<strong id="t_result">0 TND</strong>
+</div>
+</div>
+<!-- OBJECTIF -->
+<div id="objectif" class="tool">
+<h2 class="tool-title">🎯 Objectif de bénéfice</h2>
+<p class="tool-description">
+Découvre combien d'unités tu dois vendre pour atteindre ton objectif.
+</p>
+<div class="grid">
+<div class="field">
+<label>Prix d'achat</label>
+<input id="o_achat" type="number" placeholder="20">
+</div>
+<div class="field">
+<label>Prix de vente</label>
+<input id="o_vente" type="number" placeholder="35">
+</div>
+<div class="field">
+<label>Bénéfice souhaité</label>
+<input id="o_objectif" type="number" placeholder="1000">
+</div>
+<div class="field">
+<label>Frais fixes</label>
+<input id="o_frais" type="number" placeholder="100">
+</div>
+</div>
+<button class="action" onclick="calcObjectif()">Calculer →</button>
+<div class="result">
+<small>Unités à vendre</small>
+<strong id="o_result">0</strong>
+</div>
+</div>
 </section>
-
 <footer>
-© 2026 CalculPro — Ton outil simple pour mieux comprendre tes bénéfices.
+© 2026 CalculPro — Un outil simple pour mieux comprendre tes chiffres.
 </footer>
-
 </div>
-
 <script>
-
-function formatMoney(value) {
-  return value.toLocaleString("fr-FR", {
-    maximumFractionDigits: 2
-  }) + " TND";
+function money(n){
+return n.toLocaleString("fr-FR",{maximumFractionDigits:2})+" TND";
 }
-
-function calculer() {
-
-  const achat =
-    Number(document.getElementById("achat").value) || 0;
-
-  const vente =
-    Number(document.getElementById("vente").value) || 0;
-
-  const quantite =
-    Number(document.getElementById("quantite").value) || 0;
-
-  const frais =
-    Number(document.getElementById("frais").value) || 0;
-
-  const chiffreAffaires = vente * quantite;
-
-  const coutTotal = (achat * quantite) + frais;
-
-  const benefice = chiffreAffaires - coutTotal;
-
-  let marge = 0;
-
-  if (chiffreAffaires > 0) {
-    marge = (benefice / chiffreAffaires) * 100;
-  }
-
-  document.getElementById("ca").textContent =
-    formatMoney(chiffreAffaires);
-
-  document.getElementById("cout").textContent =
-    formatMoney(coutTotal);
-
-  document.getElementById("benefice").textContent =
-    formatMoney(benefice);
-
-  document.getElementById("marge").textContent =
-    marge.toFixed(1) + " %";
-
-  const beneficeElement =
-    document.getElementById("benefice");
-
-  const message =
-    document.getElementById("message");
-
-  if (benefice > 0) {
-
-    beneficeElement.className = "profit";
-
-    message.innerHTML =
-      "🚀 <strong>Bravo !</strong> Ton activité génère " +
-      formatMoney(benefice) +
-      " de bénéfice sur cette vente.";
-
-  } else if (benefice < 0) {
-
-    beneficeElement.className = "loss";
-
-    message.innerHTML =
-      "⚠️ Attention : tu es actuellement en perte de " +
-      formatMoney(Math.abs(benefice)) + ".";
-
-  } else {
-
-    beneficeElement.className = "";
-
-    message.innerHTML =
-      "⚖️ Tu es à l'équilibre : aucun bénéfice, aucune perte.";
-  }
+function showTool(id,button){
+document.querySelectorAll(".tool")
+.forEach(x=>x.classList.remove("active"));
+document.getElementById(id)
+.classList.add("active");
+document.querySelectorAll(".menu button")
+.forEach(x=>x.classList.remove("active"));
+button.classList.add("active");
 }
-
-function resetForm() {
-
-  document.getElementById("achat").value = "";
-  document.getElementById("vente").value = "";
-  document.getElementById("quantite").value = "";
-  document.getElementById("frais").value = "";
-
-  document.getElementById("ca").textContent = "0 TND";
-  document.getElementById("cout").textContent = "0 TND";
-  document.getElementById("benefice").textContent = "0 TND";
-  document.getElementById("marge").textContent = "0 %";
-
-  document.getElementById("message").innerHTML =
-    "💡 Entre tes chiffres pour découvrir combien tu peux réellement gagner.";
+function calcBenefice(){
+let achat=Number(document.getElementById("b_achat").value)||0;
+let vente=Number(document.getElementById("b_vente").value)||0;
+let qte=Number(document.getElementById("b_qte").value)||0;
+let frais=Number(document.getElementById("b_frais").value)||0;
+let ca=vente*qte;
+let cout=(achat*qte)+frais;
+let benefice=ca-cout;
+document.getElementById("b_result").textContent=money(benefice);
+document.getElementById("b_info").innerHTML=
+benefice>0
+?"🚀 Tu génères "+money(benefice)+" de bénéfice."
+:benefice<0
+?"⚠️ Tu es actuellement en perte de "+money(Math.abs(benefice))+"."
+:"⚖️ Tu es à l'équilibre.";
 }
-
+function calcMarge(){
+let achat=Number(document.getElementById("m_achat").value)||0;
+let vente=Number(document.getElementById("m_vente").value)||0;
+let marge=vente>0?((vente-achat)/vente)*100:0;
+document.getElementById("m_result").textContent=
+marge.toFixed(2)+" %";
+}
+function calcPrix(){
+let cout=Number(document.getElementById("p_cout").value)||0;
+let marge=Number(document.getElementById("p_marge").value)||0;
+let prix=marge<100?cout/(1-marge/100):0;
+document.getElementById("p_result").textContent=money(prix);
+}
+function calcRemise(){
+let prix=Number(document.getElementById("r_prix").value)||0;
+let remise=Number(document.getElementById("r_remise").value)||0;
+let resultat=prix*(1-remise/100);
+document.getElementById("r_result").textContent=money(resultat);
+}
+function calcTVA(){
+let ht=Number(document.getElementById("t_ht").value)||0;
+let tva=Number(document.getElementById("t_tva").value)||0;
+let ttc=ht*(1+tva/100);
+document.getElementById("t_result").textContent=money(ttc);
+}
+function calcObjectif(){
+let achat=Number(document.getElementById("o_achat").value)||0;
+let vente=Number(document.getElementById("o_vente").value)||0;
+let objectif=Number(document.getElementById("o_objectif").value)||0;
+let frais=Number(document.getElementById("o_frais").value)||0;
+let beneficeUnitaire=vente-achat;
+let besoin=objectif+frais;
+let unites=beneficeUnitaire>0
+?Math.ceil(besoin/beneficeUnitaire)
+:0;
+document.getElementById("o_result").textContent=unites;
+}
 </script>
-
 </body>
 </html>
