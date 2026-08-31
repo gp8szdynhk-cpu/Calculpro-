@@ -3,71 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="CalculPro : calculateur de bénéfice, marge, remise, TVA et objectifs de vente.">
-<title>CalculPro — Tes chiffres, simplement</title>
-
+<meta name="description" content="CalculPro : calcule ton bénéfice, ta marge, ton prix de vente, tes remises, ta TVA et ton objectif de vente.">
+<title>CalculPro — L'outil intelligent pour tes chiffres</title>
 <style>
 *{
 box-sizing:border-box;
 margin:0;
 padding:0;
 }
-
 body{
 font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#06111f,#0b1d31,#102c45);
+background:
+radial-gradient(circle at top,#173b55 0,#091827 42%,#050d17 100%);
 color:white;
 min-height:100vh;
 }
-
 .container{
 width:92%;
 max-width:1050px;
 margin:auto;
-padding:25px 0 45px;
+padding:24px 0 50px;
 }
-
+/* HEADER */
 header{
 text-align:center;
-padding:15px 0 28px;
+padding:12px 0 25px;
 }
-
 .logo{
 font-size:40px;
-font-weight:800;
+font-weight:900;
+letter-spacing:-1.5px;
 }
-
 .logo span{
 color:#35d07f;
 }
-
 .subtitle{
-color:#9fb1c4;
+color:#91a6ba;
 margin-top:8px;
 }
-
+/* HERO */
 .hero{
 text-align:center;
-margin-bottom:25px;
+margin-bottom:24px;
 }
-
+.badge{
+display:inline-block;
+padding:8px 13px;
+border-radius:30px;
+background:rgba(53,208,127,.1);
+border:1px solid rgba(53,208,127,.2);
+color:#35d07f;
+font-size:13px;
+font-weight:bold;
+margin-bottom:14px;
+}
 .hero h1{
-font-size:clamp(30px,7vw,52px);
-line-height:1.05;
-margin-bottom:12px;
+font-size:clamp(31px,7vw,55px);
+line-height:1.04;
+margin-bottom:13px;
 }
-
 .hero h1 span{
 color:#35d07f;
 }
-
 .hero p{
+max-width:700px;
+margin:auto;
 color:#aebdce;
 line-height:1.6;
-max-width:680px;
-margin:auto;
 }
-
+/* CURRENCY */
 .currency-box{
 display:flex;
 justify-content:center;
@@ -76,7 +80,6 @@ gap:10px;
 margin:20px 0;
 color:#aebdce;
 }
-
 select{
 background:#12263b;
 border:1px solid #29435b;
@@ -86,88 +89,79 @@ border-radius:10px;
 font-size:15px;
 outline:none;
 }
-
 /* MENU */
-
 .menu{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:10px;
-margin:25px 0;
+margin:24px 0;
 }
-
 .menu button{
-background:#12263b;
-color:#c9d5e2;
-border:1px solid #203a52;
+background:#10243a;
+color:#cbd7e3;
+border:1px solid #203b53;
 padding:14px 8px;
 border-radius:13px;
 font-weight:bold;
 cursor:pointer;
+transition:.2s;
 }
-
+.menu button:hover{
+transform:translateY(-2px);
+}
 .menu button.active{
 background:#35d07f;
 color:#06130c;
+border-color:#35d07f;
 }
-
-/* CALCULATEUR */
-
+/* MAIN */
 .calculator{
-background:rgba(255,255,255,.07);
+background:rgba(255,255,255,.06);
 border:1px solid rgba(255,255,255,.1);
-border-radius:24px;
-padding:24px;
-box-shadow:0 20px 60px rgba(0,0,0,.25);
+border-radius:25px;
+padding:25px;
+box-shadow:0 25px 70px rgba(0,0,0,.3);
 }
-
 .tool{
 display:none;
 }
-
 .tool.active{
 display:block;
 }
-
 .tool-title{
-font-size:25px;
+font-size:26px;
 margin-bottom:7px;
 }
-
 .tool-description{
 color:#91a6ba;
 margin-bottom:22px;
 line-height:1.5;
 }
-
 .grid{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:17px;
 }
-
 .field label{
 display:block;
 font-size:14px;
 color:#d5dfeb;
 margin-bottom:8px;
 }
-
 input{
 width:100%;
 padding:16px;
 border-radius:13px;
 border:1px solid #30465d;
-background:#091727;
+background:#081523;
 color:#fff;
 font-size:17px;
 outline:none;
 }
-
 input:focus{
 border-color:#35d07f;
+box-shadow:0 0 0 3px rgba(53,208,127,.1);
 }
-
 .action{
 width:100%;
 margin-top:22px;
@@ -180,7 +174,6 @@ font-size:16px;
 font-weight:bold;
 cursor:pointer;
 }
-
 .secondary{
 width:100%;
 margin-top:10px;
@@ -192,47 +185,55 @@ color:white;
 font-weight:bold;
 cursor:pointer;
 }
-
+/* RESULT */
 .result{
 margin-top:22px;
-padding:22px;
+padding:23px;
 border-radius:17px;
-background:#091727;
+background:#081523;
 border:1px solid #20384e;
 text-align:center;
 }
-
 .result small{
 display:block;
 color:#8fa2b7;
 margin-bottom:8px;
 }
-
 .result strong{
-font-size:31px;
+font-size:32px;
 color:#35d07f;
 }
-
-.info{
-margin-top:15px;
-padding:15px;
-border-radius:13px;
-background:rgba(53,208,127,.07);
-color:#b5c5d5;
-line-height:1.5;
+/* DIAGNOSTIC */
+.diagnostic{
+margin-top:16px;
+padding:18px;
+border-radius:16px;
+background:linear-gradient(
+135deg,
+rgba(53,208,127,.09),
+rgba(53,208,127,.02)
+);
+border:1px solid rgba(53,208,127,.18);
 }
-
+.diagnostic-title{
+font-size:17px;
+font-weight:bold;
+margin-bottom:8px;
+}
+.diagnostic-text{
+color:#b8c8d8;
+line-height:1.6;
+}
+/* HISTORY */
 .history{
 margin-top:25px;
 }
-
 .history h2{
 font-size:21px;
 margin-bottom:12px;
 }
-
 .history-item{
-background:#091727;
+background:#081523;
 border:1px solid #20384e;
 border-radius:13px;
 padding:14px;
@@ -242,82 +243,119 @@ justify-content:space-between;
 align-items:center;
 gap:10px;
 }
-
 .history-item small{
-color:#8fa2b7;
+color:#7f94a8;
 }
-
 .history-item strong{
 color:#35d07f;
 }
-
-.delete-history{
-background:#26384c;
-border:0;
-color:white;
-padding:10px 13px;
-border-radius:9px;
-cursor:pointer;
-}
-
 .empty{
 color:#71869b;
 padding:15px 0;
 }
-
+/* FEATURES */
+.features{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:28px;
+}
+.feature{
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.07);
+border-radius:16px;
+padding:18px;
+}
+.feature div{
+font-size:25px;
+margin-bottom:10px;
+}
+.feature h3{
+font-size:16px;
+margin-bottom:7px;
+}
+.feature p{
+font-size:13px;
+color:#8398ac;
+line-height:1.5;
+}
+/* FAQ */
+.faq{
+margin-top:35px;
+}
+.faq h2{
+text-align:center;
+margin-bottom:17px;
+}
+details{
+background:#081523;
+border:1px solid #20384e;
+border-radius:12px;
+padding:15px;
+margin-bottom:9px;
+}
+summary{
+cursor:pointer;
+font-weight:bold;
+}
+details p{
+color:#91a6ba;
+line-height:1.5;
+margin-top:10px;
+}
 footer{
 text-align:center;
-color:#71869b;
+color:#667d92;
 font-size:13px;
-margin-top:30px;
+margin-top:35px;
 }
-
 @media(max-width:700px){
-
 .menu{
 grid-template-columns:repeat(2,1fr);
 }
-
 .grid{
 grid-template-columns:1fr;
 }
-
+.features{
+grid-template-columns:1fr;
+}
 .calculator{
 padding:18px;
 }
-
 .logo{
 font-size:35px;
 }
-
-.history-item{
-align-items:flex-start;
+.hero h1{
+font-size:35px;
 }
-
 }
 </style>
 </head>
-
 <body>
-
 <div class="container">
-
 <header>
-<div class="logo">Calcul<span>Pro</span></div>
-<div class="subtitle">Tes chiffres. Tes décisions. Ton avantage.</div>
+<div class="logo">
+Calcul<span>Pro</span>
+</div>
+<div class="subtitle">
+Tes chiffres. Tes décisions. Ton avantage.
+</div>
 </header>
-
 <section class="hero">
-<h1>Les bons calculs pour <span>mieux décider.</span></h1>
+<div class="badge">
+⚡ SIMPLE • RAPIDE • GRATUIT
+</div>
+<h1>
+Comprends tes chiffres.<br>
+<span>Améliore tes résultats.</span>
+</h1>
 <p>
-Une boîte à outils simple pour entrepreneurs, vendeurs
-et créateurs de projets.
+CalculPro réunit les calculs essentiels pour les vendeurs,
+entrepreneurs et projets personnels dans un seul outil.
 </p>
 </section>
-
 <div class="currency-box">
 <span>💱 Monnaie :</span>
-
 <select id="currency" onchange="changeCurrency()">
 <option value="TND">TND — Dinar tunisien</option>
 <option value="EUR">EUR — Euro</option>
@@ -325,639 +363,560 @@ et créateurs de projets.
 <option value="CAD">CAD — Dollar canadien</option>
 </select>
 </div>
-
+<!-- MENU -->
 <div class="menu">
-
-<button class="active" onclick="showTool('benefice',this)">
+<button class="active"
+onclick="showTool('benefice',this)">
 💰 Bénéfice
 </button>
-
 <button onclick="showTool('marge',this)">
 📈 Marge
 </button>
-
 <button onclick="showTool('prix',this)">
 🏷️ Prix conseillé
 </button>
-
 <button onclick="showTool('remise',this)">
 🔻 Remise
 </button>
-
 <button onclick="showTool('tva',this)">
 🧾 TVA
 </button>
-
 <button onclick="showTool('objectif',this)">
 🎯 Objectif
 </button>
-
 </div>
-
 <section class="calculator">
-
 <!-- BENEFICE -->
-
 <div id="benefice" class="tool active">
-
-<h2 class="tool-title">💰 Calculateur de bénéfice</h2>
-
+<h2 class="tool-title">
+💰 Calculateur de bénéfice
+</h2>
 <p class="tool-description">
-Découvre combien tu gagnes réellement sur tes ventes.
+Découvre combien tu gagnes réellement après tes coûts et tes frais.
 </p>
-
 <div class="grid">
-
 <div class="field">
 <label>Prix d'achat unitaire</label>
-<input id="b_achat" type="number" placeholder="20">
+<input id="b_achat"
+type="number"
+placeholder="20"
+min="0">
 </div>
-
 <div class="field">
 <label>Prix de vente unitaire</label>
-<input id="b_vente" type="number" placeholder="35">
+<input id="b_vente"
+type="number"
+placeholder="35"
+min="0">
 </div>
-
 <div class="field">
 <label>Quantité</label>
-<input id="b_qte" type="number" placeholder="100">
+<input id="b_qte"
+type="number"
+placeholder="100"
+min="0">
 </div>
-
 <div class="field">
 <label>Frais supplémentaires</label>
-<input id="b_frais" type="number" placeholder="100">
+<input id="b_frais"
+type="number"
+placeholder="100"
+min="0">
 </div>
-
 </div>
-
-<button class="action" onclick="calcBenefice()">
+<button class="action"
+onclick="calcBenefice()">
 Calculer mon bénéfice →
 </button>
-
-<button class="secondary" onclick="shareResult('benefice')">
-📤 Partager le résultat
+<button class="secondary"
+onclick="shareResult()">
+📤 Partager mon résultat
 </button>
-
 <div class="result">
 <small>Bénéfice net</small>
-<strong id="b_result">0 TND</strong>
+<strong id="b_result">
+0 TND
+</strong>
 </div>
-
-<div class="info" id="b_info">
-💡 Entre tes chiffres pour commencer.
+<div class="diagnostic">
+<div class="diagnostic-title">
+🧠 Analyse CalculPro
 </div>
-
+<div class="diagnostic-text"
+id="b_info">
+Entre tes chiffres et CalculPro analysera automatiquement ton résultat.
 </div>
-
-
+</div>
+</div>
 <!-- MARGE -->
-
 <div id="marge" class="tool">
-
-<h2 class="tool-title">📈 Calculateur de marge</h2>
-
+<h2 class="tool-title">
+📈 Calculateur de marge
+</h2>
 <p class="tool-description">
-Découvre le pourcentage de marge réalisé sur une vente.
+Découvre la marge réalisée sur une vente.
 </p>
-
 <div class="grid">
-
 <div class="field">
 <label>Prix d'achat</label>
-<input id="m_achat" type="number" placeholder="20">
+<input id="m_achat"
+type="number"
+placeholder="20">
 </div>
-
 <div class="field">
 <label>Prix de vente</label>
-<input id="m_vente" type="number" placeholder="35">
+<input id="m_vente"
+type="number"
+placeholder="35">
 </div>
-
 </div>
-
-<button class="action" onclick="calcMarge()">
+<button class="action"
+onclick="calcMarge()">
 Calculer la marge →
 </button>
-
 <div class="result">
 <small>Marge</small>
-<strong id="m_result">0 %</strong>
+<strong id="m_result">
+0 %
+</strong>
 </div>
-
 </div>
-
-
 <!-- PRIX -->
-
 <div id="prix" class="tool">
-
-<h2 class="tool-title">🏷️ Prix de vente conseillé</h2>
-
+<h2 class="tool-title">
+🏷️ Prix de vente conseillé
+</h2>
 <p class="tool-description">
-Détermine ton prix de vente à partir du coût et de la marge souhaitée.
+Détermine un prix de vente selon la marge que tu souhaites obtenir.
 </p>
-
 <div class="grid">
-
 <div class="field">
 <label>Coût du produit</label>
-<input id="p_cout" type="number" placeholder="20">
+<input id="p_cout"
+type="number"
+placeholder="20">
 </div>
-
 <div class="field">
 <label>Marge souhaitée (%)</label>
-<input id="p_marge" type="number" placeholder="30">
+<input id="p_marge"
+type="number"
+placeholder="30">
 </div>
-
 </div>
-
-<button class="action" onclick="calcPrix()">
+<button class="action"
+onclick="calcPrix()">
 Calculer le prix →
 </button>
-
 <div class="result">
 <small>Prix conseillé</small>
-<strong id="p_result">0 TND</strong>
+<strong id="p_result">
+0 TND
+</strong>
 </div>
-
 </div>
-
-
 <!-- REMISE -->
-
 <div id="remise" class="tool">
-
-<h2 class="tool-title">🔻 Calculateur de remise</h2>
-
+<h2 class="tool-title">
+🔻 Calculateur de remise
+</h2>
 <p class="tool-description">
-Calcule rapidement le prix après une réduction.
+Calcule le prix après une réduction.
 </p>
-
 <div class="grid">
-
 <div class="field">
 <label>Prix initial</label>
-<input id="r_prix" type="number" placeholder="100">
+<input id="r_prix"
+type="number"
+placeholder="100">
 </div>
-
 <div class="field">
 <label>Remise (%)</label>
-<input id="r_remise" type="number" placeholder="20">
+<input id="r_remise"
+type="number"
+placeholder="20">
 </div>
-
 </div>
-
-<button class="action" onclick="calcRemise()">
+<button class="action"
+onclick="calcRemise()">
 Calculer →
 </button>
-
 <div class="result">
 <small>Prix après remise</small>
-<strong id="r_result">0 TND</strong>
+<strong id="r_result">
+0 TND
+</strong>
 </div>
-
 </div>
-
-
 <!-- TVA -->
-
 <div id="tva" class="tool">
-
-<h2 class="tool-title">🧾 Calculateur TVA</h2>
-
+<h2 class="tool-title">
+🧾 Calculateur TVA
+</h2>
 <p class="tool-description">
-Passe rapidement du prix HT au prix TTC.
+Calcule rapidement le prix TTC à partir du prix HT.
 </p>
-
 <div class="grid">
-
 <div class="field">
 <label>Prix HT</label>
-<input id="t_ht" type="number" placeholder="100">
+<input id="t_ht"
+type="number"
+placeholder="100">
 </div>
-
 <div class="field">
 <label>TVA (%)</label>
-<input id="t_tva" type="number" placeholder="19">
+<input id="t_tva"
+type="number"
+placeholder="19">
 </div>
-
 </div>
-
-<button class="action" onclick="calcTVA()">
+<button class="action"
+onclick="calcTVA()">
 Calculer →
 </button>
-
 <div class="result">
 <small>Prix TTC</small>
-<strong id="t_result">0 TND</strong>
+<strong id="t_result">
+0 TND
+</strong>
 </div>
-
 </div>
-
-
 <!-- OBJECTIF -->
-
 <div id="objectif" class="tool">
-
-<h2 class="tool-title">🎯 Objectif de bénéfice</h2>
-
+<h2 class="tool-title">
+🎯 Objectif de bénéfice
+</h2>
 <p class="tool-description">
-Découvre combien d'unités tu dois vendre pour atteindre ton objectif.
+Découvre combien d'unités vendre pour atteindre ton objectif.
 </p>
-
 <div class="grid">
-
 <div class="field">
 <label>Prix d'achat</label>
-<input id="o_achat" type="number" placeholder="20">
+<input id="o_achat"
+type="number"
+placeholder="20">
 </div>
-
 <div class="field">
 <label>Prix de vente</label>
-<input id="o_vente" type="number" placeholder="35">
+<input id="o_vente"
+type="number"
+placeholder="35">
 </div>
-
 <div class="field">
 <label>Bénéfice souhaité</label>
-<input id="o_objectif" type="number" placeholder="1000">
+<input id="o_objectif"
+type="number"
+placeholder="1000">
 </div>
-
 <div class="field">
 <label>Frais fixes</label>
-<input id="o_frais" type="number" placeholder="100">
+<input id="o_frais"
+type="number"
+placeholder="100">
 </div>
-
 </div>
-
-<button class="action" onclick="calcObjectif()">
+<button class="action"
+onclick="calcObjectif()">
 Calculer →
 </button>
-
 <div class="result">
 <small>Unités à vendre</small>
-<strong id="o_result">0</strong>
+<strong id="o_result">
+0
+</strong>
 </div>
-
 </div>
-
 </section>
-
-<section class="history">
-
-<h2>🕘 Derniers calculs</h2>
-
-<div id="historyList">
-<div class="empty">Aucun calcul enregistré pour le moment.</div>
+<!-- FEATURES -->
+<section class="features">
+<div class="feature">
+<div>⚡</div>
+<h3>Rapide</h3>
+<p>
+Obtiens ton résultat en quelques secondes.
+</p>
 </div>
-
-<button class="secondary" onclick="clearHistory()">
+<div class="feature">
+<div>📱</div>
+<h3>Mobile</h3>
+<p>
+CalculPro fonctionne directement sur ton téléphone.
+</p>
+</div>
+<div class="feature">
+<div>🔒</div>
+<h3>Simple</h3>
+<p>
+Tes calculs restent directement dans ton navigateur.
+</p>
+</div>
+</section>
+<!-- HISTORIQUE -->
+<section class="history">
+<h2>🕘 Derniers calculs</h2>
+<div id="historyList">
+<div class="empty">
+Aucun calcul enregistré pour le moment.
+</div>
+</div>
+<button class="secondary"
+onclick="clearHistory()">
 🗑️ Effacer l'historique
 </button>
-
 </section>
-
+<!-- FAQ -->
+<section class="faq">
+<h2>Questions fréquentes</h2>
+<details>
+<summary>À quoi sert CalculPro ?</summary>
+<p>
+CalculPro permet de calculer rapidement un bénéfice,
+une marge, un prix conseillé, une remise, une TVA
+ou un objectif de vente.
+</p>
+</details>
+<details>
+<summary>CalculPro est-il gratuit ?</summary>
+<p>
+Oui. Les outils disponibles sur cette version sont gratuits.
+</p>
+</details>
+<details>
+<summary>Mes calculs sont-ils enregistrés ?</summary>
+<p>
+L'historique est enregistré localement dans le navigateur
+de ton appareil. Il n'est pas envoyé à un serveur par cette page.
+</p>
+</details>
+<details>
+<summary>Quelle monnaie utiliser ?</summary>
+<p>
+Tu peux choisir entre TND, EUR, USD et CAD.
+Le choix de monnaie sert à afficher les résultats :
+il ne convertit pas automatiquement les taux de change.
+</p>
+</details>
+</section>
 <footer>
-© 2026 CalculPro — Un outil simple pour mieux comprendre tes chiffres.
+© 2026 CalculPro — Tes chiffres, simplement.
 </footer>
-
 </div>
-
 <script>
-
 let currency="TND";
-
 function changeCurrency(){
-
 currency=document.getElementById("currency").value;
-
-document.querySelectorAll(".result strong").forEach(el=>{
-
+document.querySelectorAll(".money-result")
+.forEach(el=>{
 if(el.dataset.value){
-el.textContent=formatMoney(Number(el.dataset.value));
+el.textContent=formatMoney(
+Number(el.dataset.value)
+);
 }
-
 });
-
 }
-
 function formatMoney(n){
-
-return n.toLocaleString("fr-FR",{
+return Number(n).toLocaleString(
+"fr-FR",
+{
 maximumFractionDigits:2
-})+" "+currency;
 }
-
-
+)+" "+currency;
+}
 function showTool(id,button){
-
 document.querySelectorAll(".tool")
 .forEach(x=>x.classList.remove("active"));
-
 document.getElementById(id)
 .classList.add("active");
-
 document.querySelectorAll(".menu button")
 .forEach(x=>x.classList.remove("active"));
-
 button.classList.add("active");
-
 }
-
-
 function saveHistory(type,value){
-
 let history=JSON.parse(
 localStorage.getItem("calculpro_history")||"[]"
 );
-
 history.unshift({
 type:type,
 value:value,
 currency:currency,
 date:new Date().toLocaleString("fr-FR")
 });
-
 history=history.slice(0,10);
-
 localStorage.setItem(
 "calculpro_history",
 JSON.stringify(history)
 );
-
 displayHistory();
 }
-
-
 function displayHistory(){
-
 let history=JSON.parse(
 localStorage.getItem("calculpro_history")||"[]"
 );
-
 let list=document.getElementById("historyList");
-
 if(history.length===0){
-
 list.innerHTML=
 '<div class="empty">Aucun calcul enregistré pour le moment.</div>';
-
 return;
 }
-
 list.innerHTML=history.map(item=>`
-
 <div class="history-item">
-
 <div>
 <small>${item.date}</small>
 <br>
 <strong>${item.type}</strong>
 </div>
-
 <div>
-<strong>${formatMoneyCurrency(item.value,item.currency)}</strong>
+<strong>
+${Number(item.value).toLocaleString("fr-FR",{maximumFractionDigits:2})}
+${item.type==="Marge"?" %":" "+item.currency}
+</strong>
 </div>
-
 </div>
-
 `).join("");
-
 }
-
-
-function formatMoneyCurrency(value,curr){
-
-return Number(value).toLocaleString("fr-FR",{
-maximumFractionDigits:2
-})+" "+curr;
-
-}
-
-
 function clearHistory(){
-
 localStorage.removeItem("calculpro_history");
-
 displayHistory();
-
 }
-
-
-async function shareResult(type){
-
-let text="";
-
-if(type==="benefice"){
-
-text="Mon bénéfice avec CalculPro : "+
-document.getElementById("b_result").textContent;
-
-}else{
-
-text="Résultat CalculPro";
-
-}
-
+async function shareResult(){
+let result=document.getElementById("b_result").textContent;
+let text=
+"💰 Mon bénéfice avec CalculPro : "+result+
+"\n\nCalculé avec CalculPro.";
 if(navigator.share){
-
 try{
-
 await navigator.share({
 title:"CalculPro",
 text:text
 });
-
 }catch(e){}
-
 }else{
-
 try{
-
 await navigator.clipboard.writeText(text);
-
 alert("Résultat copié !");
-
 }catch(e){
-
 alert(text);
-
 }
-
 }
-
 }
-
-
 function calcBenefice(){
-
-let achat=Number(
-document.getElementById("b_achat").value
-)||0;
-
-let vente=Number(
-document.getElementById("b_vente").value
-)||0;
-
-let qte=Number(
-document.getElementById("b_qte").value
-)||0;
-
-let frais=Number(
-document.getElementById("b_frais").value
-)||0;
-
+let achat=
+Number(document.getElementById("b_achat").value)||0;
+let vente=
+Number(document.getElementById("b_vente").value)||0;
+let qte=
+Number(document.getElementById("b_qte").value)||0;
+let frais=
+Number(document.getElementById("b_frais").value)||0;
 let ca=vente*qte;
-
 let cout=(achat*qte)+frais;
-
 let benefice=ca-cout;
-
+let marge=ca>0
+?(benefice/ca)*100
+:0;
 let result=document.getElementById("b_result");
-
 result.dataset.value=benefice;
-
+result.classList.add("money-result");
 result.textContent=formatMoney(benefice);
-
-document.getElementById("b_info").innerHTML=
-benefice>0
-?"🚀 Tu génères "+formatMoney(benefice)+" de bénéfice."
-:benefice<0
-?"⚠️ Tu es actuellement en perte de "+formatMoney(Math.abs(benefice))+"."
-:"⚖️ Tu es à l'équilibre.";
-
-saveHistory("Bénéfice",benefice);
-
+let info=document.getElementById("b_info");
+if(benefice>0){
+if(marge>=30){
+info.innerHTML=
+"🚀 <strong>Très bon résultat.</strong> Ta marge est de "+
+marge.toFixed(1)+" %. Ton activité semble générer une bonne rentabilité sur cette simulation.";
+}else if(marge>=15){
+info.innerHTML=
+"👍 <strong>Résultat positif.</strong> Ta marge est de "+
+marge.toFixed(1)+" %. Tu peux essayer d'améliorer ton prix de vente ou de réduire certains coûts.";
+}else{
+info.innerHTML=
+"💡 <strong>Bénéfice positif mais marge limitée.</strong> Ta marge est de "+
+marge.toFixed(1)+" %. Une petite réduction des coûts peut améliorer ton résultat.";
 }
-
-
+}else if(benefice<0){
+info.innerHTML=
+"⚠️ <strong>Attention.</strong> Cette simulation donne une perte de "+
+formatMoney(Math.abs(benefice))+
+". Vérifie ton prix de vente et tes coûts.";
+}else{
+info.innerHTML=
+"⚖️ <strong>Équilibre.</strong> Tu ne gagnes ni ne perds sur cette simulation.";
+}
+saveHistory("Bénéfice",benefice);
+}
 function calcMarge(){
-
-let achat=Number(
-document.getElementById("m_achat").value
-)||0;
-
-let vente=Number(
-document.getElementById("m_vente").value
-)||0;
-
+let achat=
+Number(document.getElementById("m_achat").value)||0;
+let vente=
+Number(document.getElementById("m_vente").value)||0;
 let marge=vente>0
 ?((vente-achat)/vente)*100
 :0;
-
 document.getElementById("m_result").textContent=
 marge.toFixed(2)+" %";
-
 saveHistory("Marge",marge);
-
 }
-
-
 function calcPrix(){
-
-let cout=Number(
-document.getElementById("p_cout").value
-)||0;
-
-let marge=Number(
-document.getElementById("p_marge").value
-)||0;
-
+let cout=
+Number(document.getElementById("p_cout").value)||0;
+let marge=
+Number(document.getElementById("p_marge").value)||0;
 let prix=marge<100
 ?cout/(1-marge/100)
 :0;
-
-let result=document.getElementById("p_result");
-
+let result=
+document.getElementById("p_result");
 result.dataset.value=prix;
-
+result.classList.add("money-result");
 result.textContent=formatMoney(prix);
-
 saveHistory("Prix conseillé",prix);
-
 }
-
-
 function calcRemise(){
-
-let prix=Number(
-document.getElementById("r_prix").value
-)||0;
-
-let remise=Number(
-document.getElementById("r_remise").value
-)||0;
-
-let resultat=prix*(1-remise/100);
-
-let result=document.getElementById("r_result");
-
+let prix=
+Number(document.getElementById("r_prix").value)||0;
+let remise=
+Number(document.getElementById("r_remise").value)||0;
+let resultat=
+prix*(1-remise/100);
+let result=
+document.getElementById("r_result");
 result.dataset.value=resultat;
-
+result.classList.add("money-result");
 result.textContent=formatMoney(resultat);
-
 saveHistory("Remise",resultat);
-
 }
-
-
 function calcTVA(){
-
-let ht=Number(
-document.getElementById("t_ht").value
-)||0;
-
-let tva=Number(
-document.getElementById("t_tva").value
-)||0;
-
-let ttc=ht*(1+tva/100);
-
-let result=document.getElementById("t_result");
-
+let ht=
+Number(document.getElementById("t_ht").value)||0;
+let tva=
+Number(document.getElementById("t_tva").value)||0;
+let ttc=
+ht*(1+tva/100);
+let result=
+document.getElementById("t_result");
 result.dataset.value=ttc;
-
+result.classList.add("money-result");
 result.textContent=formatMoney(ttc);
-
 saveHistory("TVA",ttc);
-
 }
-
-
 function calcObjectif(){
-
-let achat=Number(
-document.getElementById("o_achat").value
-)||0;
-
-let vente=Number(
-document.getElementById("o_vente").value
-)||0;
-
-let objectif=Number(
-document.getElementById("o_objectif").value
-)||0;
-
-let frais=Number(
-document.getElementById("o_frais").value
-)||0;
-
+let achat=
+Number(document.getElementById("o_achat").value)||0;
+let vente=
+Number(document.getElementById("o_vente").value)||0;
+let objectif=
+Number(document.getElementById("o_objectif").value)||0;
+let frais=
+Number(document.getElementById("o_frais").value)||0;
 let beneficeUnitaire=vente-achat;
-
 let besoin=objectif+frais;
-
 let unites=beneficeUnitaire>0
 ?Math.ceil(besoin/beneficeUnitaire)
 :0;
-
-document.getElementById("o_result").textContent=unites;
-
+document.getElementById("o_result").textContent=
+unites;
 saveHistory("Objectif",unites);
-
 }
-
-
 displayHistory();
-
 </script>
-
 </body>
 </html>
