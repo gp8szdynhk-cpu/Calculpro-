@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CalculPro — Outils pour vendeurs</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#172033;font-family:Arial,sans-serif}
+.container{max-width:900px;margin:auto;padding:18px}.hero{text-align:center;padding:30px 10px 15px}
+.logo{font-size:34px;font-weight:800}.logo span{color:#2563eb}.hero p{color:#687386}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:20px 0}
+.tool{background:#fff;border:0;border-radius:18px;padding:22px;text-align:left;box-shadow:0 7px 25px rgba(20,35,70,.07);cursor:pointer}
+.tool:hover{transform:translateY(-2px)}.icon{font-size:30px}.tool h3{margin:12px 0 6px}.tool p{margin:0;color:#687386}
+.card{background:#fff;border-radius:20px;padding:22px;box-shadow:0 8px 30px rgba(20,35,70,.08);margin-top:18px}
+.hidden{display:none}h2{margin-top:0}label{display:block;font-weight:700;margin:14px 0 7px}
+input,textarea{width:100%;padding:13px;border:1px solid #d8deea;border-radius:11px;font-size:16px}
+button{border:0;border-radius:11px;padding:13px 17px;font-size:16px;font-weight:700;background:#2563eb;color:#fff;cursor:pointer;margin-top:14px}
+.secondary{background:#e9eef8;color:#172033}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.result{background:#f1f5ff;border-radius:13px;padding:14px;text-align:center}.result small{display:block;color:#687386;margin-bottom:6px}
+.result strong{font-size:20px}.back{margin-top:0}.quote{border:1px solid #dfe4ed;padding:20px;border-radius:12px;margin-top:18px}
+.quote h3{margin-top:0}.line{display:flex;justify-content:space-between;margin:8px 0}.total{font-size:21px;font-weight:800;border-top:1px solid #ddd;padding-top:12px}
+footer{text-align:center;color:#8992a2;font-size:13px;padding:25px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.results{grid-template-columns:1fr}.container{padding:12px}}
+</style>
+</head>
+<body>
+<div class="container">
+<header class="hero">
+<div class="logo">Calcul<span>Pro</span></div>
+<p>Des outils simples pour calculer ton activité</p>
+</header>
+
+<section id="home">
+<div class="grid">
+<button class="tool" onclick="openTool('marge')"><div class="icon">💰</div><h3>Calculer ma marge</h3><p>Coût, bénéfice et marge en quelques secondes.</p></button>
+<button class="tool" onclick="openTool('benefice')"><div class="icon">📈</div><h3>Calculer mon bénéfice</h3><p>Découvre combien tu gagnes sur tes ventes.</p></button>
+<button class="tool" onclick="openTool('remise')"><div class="icon">🏷️</div><h3>Calculer une remise</h3><p>Calcule rapidement un prix après réduction.</p></button>
+<button class="tool" onclick="openTool('devis')"><div class="icon">🧾</div><h3>Créer un devis</h3><p>Crée un devis simple à imprimer ou enregistrer.</p></button>
+</div>
+</section>
+
+<section id="marge" class="card hidden">
+<button class="secondary back" onclick="home()">← Retour</button><h2>💰 Calculer ma marge</h2>
+<label>Prix d'achat (DT)</label><input id="ma" type="number" step="0.01" placeholder="30">
+<label>Frais supplémentaires (DT)</label><input id="mf" type="number" step="0.01" placeholder="5">
+<label>Prix de vente (DT)</label><input id="mv" type="number" step="0.01" placeholder="50">
+<button onclick="calcMarge()">Calculer</button>
+<div class="results"><div class="result"><small>Coût total</small><strong id="mc">0 DT</strong></div><div class="result"><small>Bénéfice</small><strong id="mb">0 DT</strong></div><div class="result"><small>Marge</small><strong id="mm">0 %</strong></div></div>
+</section>
+
+<section id="benefice" class="card hidden">
+<button class="secondary back" onclick="home()">← Retour</button><h2>📈 Calculer mon bénéfice</h2>
+<label>Prix de vente unitaire (DT)</label><input id="ba" type="number" step="0.01" placeholder="50">
+<label>Coût unitaire (DT)</label><input id="bc" type="number" step="0.01" placeholder="35">
+<label>Quantité vendue</label><input id="bq" type="number" step="1" placeholder="10">
+<button onclick="calcBenefice()">Calculer</button>
+<div class="results"><div class="result"><small>Chiffre d'affaires</small><strong id="bca">0 DT</strong></div><div class="result"><small>Coût total</small><strong id="bct">0 DT</strong></div><div class="result"><small>Bénéfice</small><strong id="bb">0 DT</strong></div></div>
+</section>
+
+<section id="remise" class="card hidden">
+<button class="secondary back" onclick="home()">← Retour</button><h2>🏷️ Calculer une remise</h2>
+<label>Prix avant remise (DT)</label><input id="rp" type="number" step="0.01" placeholder="100">
+<label>Remise (%)</label><input id="rr" type="number" step="0.1" placeholder="20">
+<button onclick="calcRemise()">Calculer</button>
+<div class="results"><div class="result"><small>Montant économisé</small><strong id="re">0 DT</strong></div><div class="result"><small>Prix final</small><strong id="rf">0 DT</strong></div><div class="result"><small>Remise</small><strong id="rpct">0 %</strong></div></div>
+</section>
+
+<section id="devis" class="card hidden">
+<button class="secondary back" onclick="home()">← Retour</button><h2>🧾 Créer un devis</h2>
+<label>Nom du client</label><input id="dn" placeholder="Client">
+<label>Produit / service</label><input id="dp" placeholder="Ex. Accessoire voiture">
+<label>Prix unitaire (DT)</label><input id="du" type="number" step="0.01" placeholder="50">
+<label>Quantité</label><input id="dq" type="number" step="1" value="1">
+<button onclick="makeQuote()">Créer le devis</button>
+<div id="quote" class="quote hidden"></div>
+</section>
+
+<footer>CalculPro — Première version de démonstration</footer>
+</div>
+
+<script>
+function n(id){let x=parseFloat(document.getElementById(id).value);return Number.isFinite(x)?x:0}
+function money(x){return x.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' DT'}
+function openTool(id){document.getElementById('home').classList.add('hidden');document.querySelectorAll('.card').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');scrollTo(0,0)}
+function home(){document.querySelectorAll('.card').forEach(x=>x.classList.add('hidden'));document.getElementById('home').classList.remove('hidden');scrollTo(0,0)}
+function calcMarge(){let c=n('ma')+n('mf'),b=n('mv')-c,m=n('mv')?b/n('mv')*100:0;mc.textContent=money(c);mb.textContent=money(b);mm.textContent=m.toFixed(1)+' %'}
+function calcBenefice(){let ca=n('ba')*n('bq'),ct=n('bc')*n('bq'),b=ca-ct;bca.textContent=money(ca);bct.textContent=money(ct);bb.textContent=money(b)}
+function calcRemise(){let p=n('rp'),r=n('rr'),e=p*r/100;re.textContent=money(e);rf.textContent=money(p-e);rpct.textContent=r.toFixed(1)+' %'}
+function makeQuote(){let client=document.getElementById('dn').value||'Client',prod=document.getElementById('dp').value||'Produit/service',u=n('du'),q=n('dq')||1,t=u*q;quote.innerHTML='<h3>Devis</h3><p><b>Client :</b> '+client+'</p><p><b>Produit :</b> '+prod+'</p><div class="line"><span>'+q+' × '+money(u)+'</span><span>'+money(t)+'</span></div><div class="line total"><span>Total</span><span>'+money(t)+'</span></div><button onclick="window.print()">🖨️ Imprimer / enregistrer en PDF</button>';quote.classList.remove('hidden')}
+</script>
+</body>
+</html>
