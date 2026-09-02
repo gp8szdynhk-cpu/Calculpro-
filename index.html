@@ -707,7 +707,25 @@ il ne convertit pas automatiquement les taux de change.
 © 2026 CalculPro — Tes chiffres, simplement.
 </footer>
 </div>
+
+<section class="calculator">
+<h2>Calculateur de prix de vente</h2>
+
+<label>Prix d'achat</label>
+<input type="number" id="pv_achat" placeholder="Ex : 50">
+
+<label>Marge souhaitée (%)</label>
+<input type="number" id="pv_marge" placeholder="Ex : 20">
+
+<button onclick="calculerPrixVente()">Calculer</button>
+
+<div class="result">
+Prix de vente : <strong id="pv_result">0</strong>
+</div>
+</section>
+
 <script>
+
 let currency="TND";
 function changeCurrency(){
 currency=document.getElementById("currency").value;
@@ -924,6 +942,17 @@ unites;
 saveHistory("Objectif",unites);
 }
 displayHistory();
+
+function calculerPrixVente(){
+let achat=parseFloat(document.getElementById("pv_achat").value)||0;
+let marge=parseFloat(document.getElementById("pv_marge").value)||0;
+
+let prix=achat*(1+marge/100);
+
+document.getElementById("pv_result").textContent=
+prix.toFixed(2);
+}
+
 </script>
 </body>
 </html>
