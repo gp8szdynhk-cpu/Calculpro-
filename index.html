@@ -720,7 +720,7 @@ il ne convertit pas automatiquement les taux de change.
 <button onclick="calculerPrixVente()">Calculer</button>
 
 <div class="result">
-Prix de vente : <strong id="pv_result">0</strong>
+Prix de vente : <strong id="pv_result">0</strong> <span id="pv_currency">TND</span>
 </div>
 </section>
 
@@ -942,15 +942,17 @@ unites;
 saveHistory("Objectif",unites);
 }
 displayHistory();
-
 function calculerPrixVente(){
 let achat=parseFloat(document.getElementById("pv_achat").value)||0;
 let marge=parseFloat(document.getElementById("pv_marge").value)||0;
 
 let prix=achat*(1+marge/100);
 
-document.getElementById("pv_result").textContent=
-prix.toFixed(2);
+document.getElementById("pv_result").textContent=prix.toFixed(2);
+document.getElementById("pv_currency").textContent=
+document.getElementById("currency").value;
+}
+
 }
 
 </script>
